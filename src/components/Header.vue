@@ -2,7 +2,10 @@
   <header>
     <div>
       <div>
-        <input v-model="search" type="text" /><button type="button">
+        <input v-model.trim="query" type="text" /><button
+          type="button"
+          @click="getSearch"
+        >
           Cerca
         </button>
       </div>
@@ -13,10 +16,16 @@
 <script>
 export default {
   name: "Header",
+
   data() {
     return {
-      search: "",
+      query: "",
     };
+  },
+  methods: {
+    getSearch() {
+      this.$emit("search", this.query);
+    },
   },
 };
 </script>
