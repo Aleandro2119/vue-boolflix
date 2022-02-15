@@ -1,7 +1,14 @@
 <template>
   <div id="app">
-    <Header @search="searchElement" />
-    <Main :films="films" :series="series" />
+    <Header @search="search" />
+    <section>
+      <h2>FILMS</h2>
+      <Main v-for="film in films" :key="film.id" :item="film" />
+    </section>
+    <section>
+      <h2>SERIES</h2>
+      <Main v-for="serie in series" :key="serie.id" :item="serie" />
+    </section>
   </div>
 </template>
 
@@ -30,9 +37,14 @@ export default {
   },
 
   methods: {
-    searchElement(query) {
-      const { api_key, url, language } = this.api;
+    search(query) {
+      if (!query) {
+        this.films = [];
+        this.series = [];
+        return;
+      }
 
+      const { api_key, language } = this.api;
       const config = {
         params: {
           api_key: api_key,
@@ -41,12 +53,13 @@ export default {
         },
       };
 
-      axios.get(`${url}/search/movie`, config).then((res) => {
-        this.films = res.data.results;
-      });
+      this.fetchApi("search/movie", config, "films");
+      this.fetchApi("search/tv", config, "series");
+    },
 
-      axios.get(`${url}/search/tv`, config).then((res) => {
-        this.series = res.data.results;
+    fetchApi(endpoint, config, target) {
+      axios.get(`${this.api.url}/${endpoint}`, config).then((res) => {
+        this[target] = res.data.results;
       });
     },
   },
