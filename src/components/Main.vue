@@ -1,25 +1,19 @@
 <template>
   <main>
     <div>
-      <h2>FILMS</h2>
       <ul>
-        <li v-for="film in films" :key="film.id">
-          <h4>Titolo: {{ film.title }}</h4>
-          <p>Titolo originale: {{ film.original_title }}</p>
-          <p>Lingua: {{ film.original_language }}</p>
-          <p>Voto: {{ film.vote_average }}</p>
-        </li>
-      </ul>
-    </div>
-
-    <div>
-      <h2>SERIES</h2>
-      <ul>
-        <li v-for="serie in series" :key="serie.id">
-          <h4>Titolo: {{ serie.name }}</h4>
-          <p>Titolo originale: {{ serie.original_name }}</p>
-          <p>Lingua: {{ serie.original_language }}</p>
-          <p>Voto: {{ serie.vote_average }}</p>
+        <li>
+          <h4>Titolo: {{ item.title || item.name }}</h4>
+          <p>
+            Titolo originale: {{ item.original_title || item.original_name }}
+          </p>
+          <img
+            v-if="countries.includes(item.original_language)"
+            :src="flag"
+            alt=""
+          />
+          <p v-else>Lingua: {{ item.original_language }}</p>
+          <p>Voto: {{ item.vote_average }}</p>
         </li>
       </ul>
     </div>
@@ -29,9 +23,21 @@
 <script>
 export default {
   name: "Cards",
-  props: ["films", "series"],
+  props: ["item"],
+
+  data() {
+    return {
+      countries: ["it", "en"],
+    };
+  },
+
+  computed: {
+    flag() {
+      return require(`@/assets/img/${this.item.original_language}.png`);
+    },
+  },
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 </style>
