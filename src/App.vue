@@ -1,7 +1,7 @@
 <template>
   <div id="app">
     <Header @search="searchElement" />
-    <Main :films="films" />
+    <Main :films="films" :series="series" />
   </div>
 </template>
 
@@ -20,6 +20,7 @@ export default {
   data() {
     return {
       films: [],
+      series: [],
       api: {
         language: "it-IT",
         api_key: "c98fc689e4d66d8a1762d048d057e91b",
@@ -42,6 +43,10 @@ export default {
 
       axios.get(`${url}/search/movie`, config).then((res) => {
         this.films = res.data.results;
+      });
+
+      axios.get(`${url}/search/tv`, config).then((res) => {
+        this.series = res.data.results;
       });
     },
   },
