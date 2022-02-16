@@ -14,6 +14,7 @@
           />
           <p v-else>Lingua: {{ item.original_language }}</p>
           <p>Voto: {{ item.vote_average }}</p>
+          <img :src="poster" :alt="title" />
         </li>
       </ul>
     </div>
@@ -28,12 +29,26 @@ export default {
   data() {
     return {
       countries: ["it", "en"],
+      img: {
+        url: "https://image.tmdb.org/t/p/w342",
+        placeholder:
+          "https://www.altavod.com/assets/images/poster-placeholder.png",
+      },
     };
   },
 
   computed: {
     flag() {
       return require(`@/assets/img/${this.item.original_language}.png`);
+    },
+
+    title() {
+      return this.item.title || this.item.name;
+    },
+
+    poster() {
+      if (!this.item.poster_path) return this.img.placeholder;
+      return this.img.url + this.item.poster_path;
     },
   },
 };
