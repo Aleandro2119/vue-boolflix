@@ -1,15 +1,12 @@
 <template>
   <header>
-    <div>
-      <div>
-        <input v-model.trim="query" type="text" /><button
-          type="button"
-          @click="getSearch"
-        >
-          Cerca
-        </button>
-      </div>
-    </div>
+    <h1>BOOLFLIX</h1>
+    <input v-model.trim="query" type="text" /><button
+      type="button"
+      @click="getSearch"
+    >
+      Cerca
+    </button>
   </header>
 </template>
 
@@ -30,5 +27,15 @@ export default {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
+header {
+  background-color: #000000;
+  height: 80px;
+  display: flex;
+  align-items: center;
+
+  h1 {
+    color: red;
+  }
+}
 </style>
