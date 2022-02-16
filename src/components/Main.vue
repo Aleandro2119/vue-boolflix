@@ -13,7 +13,15 @@
             alt=""
           />
           <p v-else>Lingua: {{ item.original_language }}</p>
-          <p>Voto: {{ item.vote_average }}</p>
+          <div>
+            Voto:
+            <i
+              v-for="n in 5"
+              :key="n"
+              class="fa-star"
+              :class="n <= vote ? 'far' : 'fas'"
+            ></i>
+          </div>
           <img :src="poster" :alt="title" />
         </li>
       </ul>
@@ -49,6 +57,10 @@ export default {
     poster() {
       if (!this.item.poster_path) return this.img.placeholder;
       return this.img.url + this.item.poster_path;
+    },
+
+    vote() {
+      return Math.ceil(this.item.vote_average / 2);
     },
   },
 };
