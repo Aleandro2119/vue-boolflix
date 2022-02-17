@@ -1,12 +1,12 @@
 <template>
-  <div id="app">
+  <div>
     <Header @search="search" />
     <section>
-      <h2>FILMS</h2>
+      <h2 class="text-center text-white">FILMS</h2>
       <Main v-for="film in films" :key="film.id" :item="film" />
     </section>
     <section>
-      <h2>SERIES</h2>
+      <h2 class="text-center text-white">SERIES</h2>
       <Main v-for="serie in series" :key="serie.id" :item="serie" />
     </section>
   </div>
@@ -67,4 +67,8 @@ export default {
 </script>
 
 <style lang="scss">
+@import "./assets/scss/style.scss";
+body {
+  background-color: #434343;
+}
 </style>
