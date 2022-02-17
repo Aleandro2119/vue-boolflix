@@ -1,12 +1,14 @@
 <template>
-  <header>
+  <header class="d-flex justify-content-between align-items-center p-3">
     <h1>BOOLFLIX</h1>
-    <input v-model.trim="query" type="text" /><button
-      type="button"
-      @click="getSearch"
-    >
-      Cerca
-    </button>
+    <div id="searc">
+      <input v-model.trim="query" type="text" /><button
+        type="button"
+        @click="getSearch"
+      >
+        Cerca
+      </button>
+    </div>
   </header>
 </template>
 
@@ -27,12 +29,10 @@ export default {
 };
 </script>
 
+
 <style lang="scss" scoped>
 header {
   background-color: #000000;
-  height: 80px;
-  display: flex;
-  align-items: center;
 
   h1 {
     color: red;
